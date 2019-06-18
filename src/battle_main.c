@@ -108,8 +108,8 @@ static void BattleIntroPrintWildMonAttacked(void);
 static void BattleIntroPrintOpponentSendsOut(void);
 static void BattleIntroPrintPlayerSendsOut(void);
 static void BattleIntroOpponent1SendsOutMonAnimation(void);
-static void BattleIntroOpponent2SendsOutMonAnimation(void);
-static void BattleIntroRecordMonsToDex(void);
+void BattleIntroOpponent2SendsOutMonAnimation(void);
+void BattleIntroRecordMonsToDex(void);
 static void BattleIntroPlayer1SendsOutMonAnimation(void);
 static void TryDoEventsBeforeFirstTurn(void);
 static void HandleTurnActionSelectionState(void);
@@ -3577,7 +3577,7 @@ static void BattleIntroPrintOpponentSendsOut(void)
     gBattleMainFunc = BattleIntroOpponent1SendsOutMonAnimation;
 }
 
-static void BattleIntroOpponent2SendsOutMonAnimation(void)
+void BattleIntroOpponent2SendsOutMonAnimation(void)
 {
     u32 position;
 
@@ -3729,7 +3729,7 @@ _0803B2F2:\n\
 }
 #endif // NONMATCHING
 
-static void BattleIntroRecordMonsToDex(void)
+void BattleIntroRecordMonsToDex(void)
 {
     if (gBattleControllerExecFlags == 0)
     {

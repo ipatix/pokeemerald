@@ -626,7 +626,7 @@ static u16 CalculateChecksum(void *data, u16 size)
     u32 checksum = 0;
 
     for (i = 0; i < (size / 4); i++)
-        checksum += *((u32 *)data)++;
+        checksum += *((u32 *)data++);
 
     return ((checksum >> 16) + checksum);
 }

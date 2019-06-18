@@ -334,7 +334,7 @@ static const union AffineAnimCmd* const gSpriteAffineAnimTable_8587AC4[] =
     gSpriteAffineAnim_8587AAC
 };
 
-static const struct SpriteTemplate gSpriteTemplate_8587AD0 =
+const struct SpriteTemplate gSpriteTemplate_8587AD0 =
 {
     .tileTag = 0x4E20,
     .paletteTag = 0xABE0,
@@ -392,7 +392,7 @@ static const struct OamData gOamData_8587B10 =
     .affineParam = 0
 };
 
-static const struct SpriteTemplate gSpriteTemplate_8587B18[] =
+const struct SpriteTemplate gSpriteTemplate_8587B18[] =
 {
     {
         .tileTag = 0x4E22,
@@ -1268,7 +1268,7 @@ static void sub_80D8108(u8 taskId)
         gTasks[taskId].data[0]++;
         break;
     case 1:
-        (s16)gBattle_BG1_Y += 7;
+        *(s16*)&gBattle_BG1_Y += 7;
         if ((s16)gBattle_BG1_Y <= 160)
             break;
         gTasks[taskId].data[0]++;

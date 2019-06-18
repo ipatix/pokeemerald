@@ -172,7 +172,7 @@ static void sub_80796B4(u8);
 static u8 sub_8079A3C(u8 *, u8, u8);
 static void sub_8079AA4(u8 *, u8, u8);
 static void sub_8079BE0(u8);
-static void sub_8079C4C(u8, u8, u8, u8, u8, u8);
+void sub_8079C4C(u8, u8, u8, u8, u8, u8);
 static void sub_8079E44(u8);
 static void sub_8079F74(void);
 static void sub_8079F88(u8);
@@ -491,7 +491,7 @@ static const u8 gTradeMonSpriteCoords[][2] =
     {23, 18} // CANCEL
 };
 
-static const u8 gTradeLevelDisplayCoords[][6][2] =
+const u8 gTradeLevelDisplayCoords[][6][2] =
 {
     {
         // Your party
@@ -513,7 +513,7 @@ static const u8 gTradeLevelDisplayCoords[][6][2] =
     }
 };
 
-static const u8 gTradeMonBoxCoords[][6][2] =
+const u8 gTradeMonBoxCoords[][6][2] =
 {
     {
         // Your party
@@ -3090,7 +3090,7 @@ static void sub_8079BE0(u8 whichParty)
     }
 }
 
-static void sub_8079C4C(u8 whichParty, u8 monIdx, u8 a2, u8 a3, u8 a4, u8 a5)
+void sub_8079C4C(u8 whichParty, u8 monIdx, u8 a2, u8 a3, u8 a4, u8 a5)
 {
     u8 level;
     u32 r2;

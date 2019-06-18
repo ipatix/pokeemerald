@@ -483,7 +483,7 @@ static void ScrollBackground(void);
 static void sub_80C7B80(void);
 static void sub_80C7BE4(void);
 static void sub_80CAA14(void);
-static void sub_80CFDC4(void);
+void sub_80CFDC4(void);
 static void sub_80CE790(void);
 static void sub_80CE8E4(void);
 static void GiveChosenBagItem(void);
@@ -540,7 +540,7 @@ static void sub_80CE7E8(void);
 static void sub_80CFECC(void);
 static void sub_80CA9EC(void);
 static void FreePSSData(void);
-static void AddBoxMenu(void);
+void AddBoxMenu(void);
 static void sub_80CCF9C(void);
 static void MoveMon(void);
 static void PlaceMon(void);
@@ -624,7 +624,7 @@ static void SetMonMarkings(u8 markings);
 static void ShowYesNoWindow(s8 cursorPos);
 static void sub_80CDBF8(u8 cursorBoxPosition);
 static void sub_80D01D0(u8 arg0);
-static void sub_80CD1A8(bool8 arg0);
+void sub_80CD1A8(bool8 arg0);
 static void sub_80CA984(bool8 arg0);
 static void CreatePartyMonsSprites(bool8 arg0);
 static void PrintStorageActionText(u8 id);
@@ -675,8 +675,8 @@ static bool32 AtLeastThreeUsableMons(void);
 static u8 InBoxInput_Normal(void);
 static u8 InBoxInput_MovingMultiple(void);
 static u8 InBoxInput_GrabbingMultiple(void);
-static s8 sub_80CFF98(u8 arg0);
-static u8 sub_80CFA5C(void);
+s8 sub_80CFF98(u8 arg0);
+u8 sub_80CFA5C(void);
 static u8 sub_80D0BA4(void);
 static bool8 sub_80CFA84(void);
 static bool8 sub_80CFB44(void);
@@ -5687,7 +5687,7 @@ static void sub_80CD158(void)
     sub_80CD1A8(TRUE);
 }
 
-static void sub_80CD1A8(bool8 a0)
+void sub_80CD1A8(bool8 a0)
 {
     u16 i;
 
@@ -8349,7 +8349,7 @@ static u8 HandleInput(void)
     return 0;
 }
 
-static void AddBoxMenu(void)
+void AddBoxMenu(void)
 {
     InitMenu();
     SetMenuText(9);
@@ -8358,7 +8358,7 @@ static void AddBoxMenu(void)
     SetMenuText(0);
 }
 
-static u8 sub_80CFA5C(void)
+u8 sub_80CFA5C(void)
 {
     InitMenu();
     if (sPSSData->boxOption != BOX_OPTION_MOVE_ITEMS)
@@ -8601,7 +8601,7 @@ static void sub_80CFC14(void)
     }
 }
 
-static void sub_80CFDC4(void)
+void sub_80CFDC4(void)
 {
     sCanOnlyMove = !sCanOnlyMove;
     sPSSData->field_CB4->oam.paletteNum = sPSSData->field_CD8[sCanOnlyMove];
@@ -8722,7 +8722,7 @@ static void SetMenuText(u8 textId)
     }
 }
 
-static s8 sub_80CFF98(u8 arg0)
+s8 sub_80CFF98(u8 arg0)
 {
     if (arg0 >= sPSSData->menuItemsCount)
         return -1;

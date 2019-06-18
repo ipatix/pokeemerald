@@ -929,7 +929,7 @@ void CopyToBgTilemapBufferRect(u8 bg, const void* src, u8 destX, u8 destY, u8 wi
             {
                 for (destX16 = destX; destX16 < (destX + width); destX16++)
                 {
-                    ((u16*)sGpuBgConfigs2[bg].tilemap)[((destY16 * 0x20) + destX16)] = *((u16*)srcCopy)++;
+                    ((u16*)sGpuBgConfigs2[bg].tilemap)[((destY16 * 0x20) + destX16)] = *(*(u16 **)&srcCopy)++;
                 }
             }
             break;
@@ -940,7 +940,7 @@ void CopyToBgTilemapBufferRect(u8 bg, const void* src, u8 destX, u8 destY, u8 wi
             {
                 for (destX16 = destX; destX16 < (destX + width); destX16++)
                 {
-                    ((u8*)sGpuBgConfigs2[bg].tilemap)[((destY16 * mode) + destX16)] = *((u8*)srcCopy)++;
+                    ((u8*)sGpuBgConfigs2[bg].tilemap)[((destY16 * mode) + destX16)] = *(*(u8 **)&srcCopy)++;
                 }
             }
             break;

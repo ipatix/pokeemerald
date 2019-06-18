@@ -36,14 +36,15 @@ MID_BUILDDIR = $(OBJ_DIR)/$(MID_SUBDIR)
 
 ASFLAGS := -mcpu=arm7tdmi
 
-CC1             := tools/agbcc/bin/agbcc$(EXE)
-override CFLAGS += -mthumb-interwork -Wimplicit -Wparentheses -Werror -O2 -fhex-asm
+CC1             := /usr/lib/gcc/arm-none-eabi/7.3.1/cc1$(EXE)
+override CFLAGS += -mthumb-interwork -mthumb -mcpu=arm7tdmi -fno-toplevel-reorder -Wimplicit -Wparentheses -O2
 
 CPPFLAGS := -I tools/agbcc/include -I tools/agbcc -iquote include -Wno-trigraphs
 
 LDFLAGS = -Map ../../$(MAP)
 
-LIB := -L ../../tools/agbcc/lib -lgcc -lc
+#LIB := -L ../../tools/agbcc/lib -lgcc -lc
+LIB := -L /usr/lib/gcc/arm-none-eabi/7.3.1/thumb -L /usr/lib/arm-none-eabi/newlib/thumb -lgcc -lc
 
 SHA1 := $(shell { command -v sha1sum || command -v shasum; } 2>/dev/null) -c
 GFX := tools/gbagfx/gbagfx$(EXE)
@@ -133,16 +134,16 @@ sound/direct_sound_samples/cry_%.bin: sound/direct_sound_samples/cry_%.aif ; $(A
 sound/%.bin: sound/%.aif ; $(AIF) $< $@
 
 
-$(C_BUILDDIR)/libc.o: CC1 := tools/agbcc/bin/old_agbcc
-$(C_BUILDDIR)/libc.o: CFLAGS := -O2
-
-$(C_BUILDDIR)/siirtc.o: CFLAGS := -mthumb-interwork
-
-$(C_BUILDDIR)/agb_flash.o: CFLAGS := -O -mthumb-interwork
-$(C_BUILDDIR)/agb_flash_1m.o: CFLAGS := -O -mthumb-interwork
-$(C_BUILDDIR)/agb_flash_mx.o: CFLAGS := -O -mthumb-interwork
-
-$(C_BUILDDIR)/m4a.o: CC1 := tools/agbcc/bin/old_agbcc
+#$(C_BUILDDIR)/libc.o: CC1 := tools/agbcc/bin/old_agbcc
+#$(C_BUILDDIR)/libc.o: CFLAGS := -O2
+#
+#$(C_BUILDDIR)/siirtc.o: CFLAGS := -mthumb-interwork
+#
+#$(C_BUILDDIR)/agb_flash.o: CFLAGS := -O -mthumb-interwork
+#$(C_BUILDDIR)/agb_flash_1m.o: CFLAGS := -O -mthumb-interwork
+#$(C_BUILDDIR)/agb_flash_mx.o: CFLAGS := -O -mthumb-interwork
+#
+#$(C_BUILDDIR)/m4a.o: CC1 := tools/agbcc/bin/old_agbcc
 
 $(C_BUILDDIR)/record_mixing.o: CFLAGS += -ffreestanding
 

@@ -108,7 +108,7 @@ static bool8 sub_80F0580(TVShow *tv1, TVShow *tv2, u8 idx);
 static bool8 sub_80F05E8(TVShow *tv1, TVShow *tv2, u8 idx);
 static bool8 sub_80F0668(TVShow *tv1, TVShow *tv2, u8 idx);
 void SetTvShowInactive(u8 showIdx);
-static void sub_80F0B24(u16 species, u8 showIdx);
+void sub_80F0B24(u16 species, u8 showIdx);
 static void sub_80F0D60(PokeNews *player1, PokeNews *player2, PokeNews *player3, PokeNews *player4);
 static void sub_80F0EEC(void);
 static void sub_80F0F24(void);
@@ -337,7 +337,7 @@ static const u8 *const sTVTodaysSmartShopperTextGroup[] = {
     gTVTodaysSmartShopperText12
 };
 
-static const u8 *const sTVBravoTrainerTextGroup[] = {
+const u8 *const sTVBravoTrainerTextGroup[] = {
     gTVBravoTrainerText00,
     gTVBravoTrainerText01,
     gTVBravoTrainerText02,
@@ -358,7 +358,7 @@ static const u8 *const sTV3CheersForPokeblocksTextGroup[] = {
     gTV3CheersForPokeblocksText05
 };
 
-static const u8 *const sTVBravoTrainerBattleTowerTextGroup[] = {
+const u8 *const sTVBravoTrainerBattleTowerTextGroup[] = {
     gTVBravoTrainerBattleTowerText00,
     gTVBravoTrainerBattleTowerText01,
     gTVBravoTrainerBattleTowerText02,
@@ -4377,7 +4377,7 @@ void SetTvShowInactive(u8 showIdx)
     gSaveBlock1Ptr->tvShows[showIdx].common.active = FALSE;
 }
 
-static void sub_80F0B24(u16 species, u8 showIdx)
+void sub_80F0B24(u16 species, u8 showIdx)
 {
     if (!GetSetPokedexFlag(SpeciesToNationalPokedexNum(species), FLAG_GET_SEEN))
     {

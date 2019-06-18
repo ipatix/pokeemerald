@@ -161,7 +161,7 @@ static const u16 gUnknown_085E56F0[][16] =
     INCBIN_U16("graphics/credits/credits_4.gbapal"),
 };
 
-static const u32 gCreditsCopyrightEnd_Gfx[] = INCBIN_U32("graphics/credits/the_end_copyright.4bpp.lz");
+const u32 gCreditsCopyrightEnd_Gfx[] = INCBIN_U32("graphics/credits/the_end_copyright.4bpp.lz");
 
 static void sub_81772B8(struct Sprite *sprite);
 

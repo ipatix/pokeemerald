@@ -908,7 +908,7 @@ static const struct WindowTemplate gUnknown_0856E670[] =
     DUMMY_WIN_TEMPLATE
 };
 
-static const u8 sText_TenDashes2[] = _("----------");
+const u8 sText_TenDashes2[] = _("----------");
 
 #include "data/pokemon_graphics/footprint_table.h"
 
