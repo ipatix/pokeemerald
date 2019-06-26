@@ -36,7 +36,7 @@ MID_BUILDDIR = $(OBJ_DIR)/$(MID_SUBDIR)
 
 ASFLAGS := -mcpu=arm7tdmi
 
-CC1             := /usr/lib/gcc/arm-none-eabi/7.3.1/cc1$(EXE)
+CC1             := $(shell $(PREFIX)gcc --print-prog-name=cc1) -quiet
 override CFLAGS += -mthumb-interwork -mthumb -mcpu=arm7tdmi -fno-toplevel-reorder -Wimplicit -Wparentheses -O2
 
 CPPFLAGS := -I tools/agbcc/include -I tools/agbcc -iquote include -Wno-trigraphs
