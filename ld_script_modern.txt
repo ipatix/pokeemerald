@@ -15,6 +15,7 @@ SECTIONS {
 
         src/*.o(ewram_data);
         gflib/*.o(ewram_data);
+        *.ltrans.o(ewram_data);
 
         . = 0x40000;
 }
@@ -30,11 +31,14 @@ SECTIONS {
 
         /* .bss.code starts at 0x3001AA8 */
         src/m4a.o(.bss.code);
+        *.ltrans.o(.bss.code);
 
         /* COMMON starts at 0x30022A8 */
         src/*.o(COMMON);
         gflib/*.o(COMMON);
         *libc.a:sbrkr.o(COMMON);
+        *.ltrans.o(.bss);
+        *.ltrans.o(COMMON);
         end = .;
         . = 0x8000;
     }
@@ -48,6 +52,7 @@ SECTIONS {
         src/*.o(.text);
         gflib/*.o(.text);
         asm/*.o(.text);
+        *.ltrans.o(.text);
     } =0
 
     script_data :
@@ -73,6 +78,7 @@ SECTIONS {
         *libagbsyscall.a:*.o(.text*);
         *libgcc.a:*.o(.text*);
         *libc.a:*.o(.text*);
+        *libnosys.a:*.o(.text*);
         src/libisagbprn.o(.text);
     } =0
 
@@ -82,6 +88,7 @@ SECTIONS {
         src/*.o(.rodata*);
         gflib/*.o(.rodata*);
         data/*.o(.rodata*);
+        *.ltrans.o(.rodata*);
     } =0
 
     song_data :
@@ -104,6 +111,9 @@ SECTIONS {
         *libgcc.a:*.o(.rodata*);
         *libc.a:*.o(.rodata*);
         *libc.a:*.o(.data*);
+        *libc.a:*.o(.bss*);
+        *crti.o(.init);
+        *crti.o(.fini);
         src/libisagbprn.o(.rodata);
     } =0
 

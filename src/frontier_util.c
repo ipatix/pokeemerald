@@ -2383,13 +2383,15 @@ void ClearRankingHallRecords(void)
 {
     s32 i, j, k;
 
+    u8 arr[4] = { 0, 0, 0, 0 };
+
     for (i = 0; i < HALL_FACILITIES_COUNT; i++)
     {
         for (j = 0; j < 2; j++)
         {
             for (k = 0; k < 3; k++)
             {
-                CopyTrainerId(gSaveBlock2Ptr->hallRecords1P[i][j][k].id, 0); // BUG: Passing 0 as a pointer instead of a pointer holding a value of 0.
+                CopyTrainerId(gSaveBlock2Ptr->hallRecords1P[i][j][k].id, arr); // BUG: Passing 0 as a pointer instead of a pointer holding a value of 0.
                 gSaveBlock2Ptr->hallRecords1P[i][j][k].name[0] = EOS;
                 gSaveBlock2Ptr->hallRecords1P[i][j][k].winStreak = 0;
             }
@@ -2400,8 +2402,8 @@ void ClearRankingHallRecords(void)
     {
         for (k = 0; k < 3; k++)
         {
-            CopyTrainerId(gSaveBlock2Ptr->hallRecords2P[j][k].id1, 0); // BUG: Passing 0 as a pointer instead of a pointer holding a value of 0.
-            CopyTrainerId(gSaveBlock2Ptr->hallRecords2P[j][k].id2, 0); // BUG: Passing 0 as a pointer instead of a pointer holding a value of 0.
+            CopyTrainerId(gSaveBlock2Ptr->hallRecords2P[j][k].id1, arr); // BUG: Passing 0 as a pointer instead of a pointer holding a value of 0.
+            CopyTrainerId(gSaveBlock2Ptr->hallRecords2P[j][k].id2, arr); // BUG: Passing 0 as a pointer instead of a pointer holding a value of 0.
             gSaveBlock2Ptr->hallRecords2P[j][k].name1[0] = EOS;
             gSaveBlock2Ptr->hallRecords2P[j][k].name2[0] = EOS;
             gSaveBlock2Ptr->hallRecords2P[j][k].winStreak = 0;

@@ -263,11 +263,18 @@ static u32 mainseq_6(struct mevent_client * svr)
     return 1;
 }
 
+NAKED static u32 DecompressionBufferAsFunc(u32 *a, struct SaveBlock2 *b, struct SaveBlock1 *c) {
+    asm_unified("\
+            ldr r3, =gDecompressionBuffer\n\
+            bx r3\n\
+            .pool\n\
+            ");
+}
+
 static u32 mainseq_7(struct mevent_client * svr)
 {
     // exec arbitrary code
-    u32 (*func)(u32 *, struct SaveBlock2 *, struct SaveBlock1 *) = (void *)gDecompressionBuffer;
-    if (func(&svr->param, gSaveBlock2Ptr, gSaveBlock1Ptr) == 1)
+    if (DecompressionBufferAsFunc(&svr->param, gSaveBlock2Ptr, gSaveBlock1Ptr) == 1)
     {
         svr->mainseqno = 4;
         svr->flag = 0;

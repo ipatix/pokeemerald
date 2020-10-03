@@ -69,7 +69,7 @@ OBJ_DIR := build/emerald
 LIBPATH := -L ../../tools/agbcc/lib
 else
 CC1              = $(shell $(CC) --print-prog-name=cc1) -quiet
-override CFLAGS += -mthumb -mthumb-interwork -O2 -mabi=apcs-gnu -mcpu=arm7tdmi -fno-toplevel-reorder -Wno-pointer-to-int-cast
+override CFLAGS += -mthumb -mthumb-interwork -O3 -flto -mcpu=arm7tdmi -fno-toplevel-reorder -Wno-pointer-to-int-cast
 ROM := pokeemerald_modern.gba
 OBJ_DIR := build/modern
 LIBPATH := -L "$(dir $(shell $(CC) -mthumb -print-file-name=libgcc.a))" -L "$(dir $(shell $(CC) -mthumb -print-file-name=libc.a))"
@@ -80,7 +80,7 @@ ifeq ($(MODERN),0)
 CPPFLAGS += -I tools/agbcc/include -I tools/agbcc
 endif
 
-LDFLAGS = -Map ../../$(MAP)
+LDFLAGS = -Wl,-Map,../../$(MAP)
 
 LIB := $(LIBPATH) -lgcc -lc -L../../libagbsyscall -lagbsyscall
 
@@ -235,7 +235,7 @@ $(C_BUILDDIR)/record_mixing.o: CFLAGS += -ffreestanding
 $(C_BUILDDIR)/librfu_intr.o: CC1 := tools/agbcc/bin/agbcc_arm
 $(C_BUILDDIR)/librfu_intr.o: CFLAGS := -O2 -mthumb-interwork -quiet
 else
-$(C_BUILDDIR)/librfu_intr.o: CFLAGS := -mthumb-interwork -O2 -mabi=apcs-gnu -mtune=arm7tdmi -march=armv4t -fno-toplevel-reorder -Wno-pointer-to-int-cast
+$(C_BUILDDIR)/librfu_intr.o: CFLAGS := -mthumb-interwork -Os -mtune=arm7tdmi -march=armv4t -fno-toplevel-reorder -Wno-pointer-to-int-cast
 endif
 
 ifeq ($(NODEP),1)
@@ -250,9 +250,7 @@ endif
 
 $(C_BUILDDIR)/%.o : $(C_SUBDIR)/%.c $$(c_dep)
 	@$(CPP) $(CPPFLAGS) $< -o $(C_BUILDDIR)/$*.i
-	@$(PREPROC) $(C_BUILDDIR)/$*.i charmap.txt | $(CC1) $(CFLAGS) -o $(C_BUILDDIR)/$*.s
-	@echo -e ".text\n\t.align\t2, 0\n" >> $(C_BUILDDIR)/$*.s
-	$(AS) $(ASFLAGS) -o $@ $(C_BUILDDIR)/$*.s
+	$(PREPROC) $(C_BUILDDIR)/$*.i charmap.txt | $(CC) -c -x c - $(CFLAGS) -o $@
 
 ifeq ($(NODEP),1)
 $(GFLIB_BUILDDIR)/%.o: c_dep :=
@@ -262,9 +260,7 @@ endif
 
 $(GFLIB_BUILDDIR)/%.o : $(GFLIB_SUBDIR)/%.c $$(c_dep)
 	@$(CPP) $(CPPFLAGS) $< -o $(GFLIB_BUILDDIR)/$*.i
-	@$(PREPROC) $(GFLIB_BUILDDIR)/$*.i charmap.txt | $(CC1) $(CFLAGS) -o $(GFLIB_BUILDDIR)/$*.s
-	@echo -e ".text\n\t.align\t2, 0\n" >> $(GFLIB_BUILDDIR)/$*.s
-	$(AS) $(ASFLAGS) -o $@ $(GFLIB_BUILDDIR)/$*.s
+	$(PREPROC) $(GFLIB_BUILDDIR)/$*.i charmap.txt | $(CC) -c -x c - $(CFLAGS) -o $@
 
 ifeq ($(NODEP),1)
 $(C_BUILDDIR)/%.o: c_asm_dep :=
@@ -317,7 +313,7 @@ $(OBJ_DIR)/ld_script.ld: $(LD_SCRIPT) $(LD_SCRIPT_DEPS)
 	cd $(OBJ_DIR) && sed "s#tools/#../../tools/#g" ../../$(LD_SCRIPT) > ld_script.ld
 
 $(ELF): $(OBJ_DIR)/ld_script.ld $(OBJS) berry_fix libagbsyscall
-	cd $(OBJ_DIR) && $(LD) $(LDFLAGS) -T ld_script.ld -o ../../$@ $(OBJS_REL) $(LIB)
+	cd $(OBJ_DIR) && $(CC) -flto -O3 -nodefaultlibs $(LDFLAGS) -Wl,-T,ld_script.ld -o ../../$@ $(OBJS_REL) $(LIB) -lnosys -Wl,--gc-sections -Wall -Wextra
 	$(FIX) $@ -t"$(TITLE)" -c$(GAME_CODE) -m$(MAKER_CODE) -r$(REVISION) --silent
 
 $(ROM): $(ELF)
